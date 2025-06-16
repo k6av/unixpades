@@ -1,0 +1,33 @@
+MAIL(1)                               Manual pages                                 MAIL(1)
+
+NAME
+    mail - read your mail messages
+
+SYNOPSIS
+    mail
+
+DESCRIPTION
+    mail shows the contents of your mail spool, then clears it.
+
+EXAMPLES
+    mail
+        Show current messages and clear the spool.
+
+SECURITY
+    Messages are sent based on user name, which is trivial to spoof. An attacker
+    logging in with another user's name can read their mail or send messages to other
+    users using their name.
+    Messages are stored unencrypted and can be accessed by the system operator.
+
+SEE ALSO
+    sendmail(1)
+
+AUTHOR
+    Script and this page written by K6aV.
+
+    Copyright (c) 2025 K6aV // https://github.com/k6av/aos-man
+    License AGPLv3+: GNU AGPL version 3 or later <https://gnu.org/licenses/agpl.html>.
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.
+
+0.1.0                                 2025-06-14                                  MAIL(1)

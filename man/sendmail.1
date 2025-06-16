@@ -1,0 +1,39 @@
+SENDMAIL(1)                            Manual pages                             SENDMAIL(1)
+
+NAME
+    sendmail - send mail to other users
+
+SYNOPSIS
+    sendmail <recipient> <message>
+
+DESCRIPTION
+    sendmail sends a mail message to the specified recipient user, who can
+    in turn view it later using the mail(1) command. The recipient user does
+    not need to be online to send a message; the next time they log on they
+    will be notified of your message.
+
+EXAMPLES
+    sendmail k6av Hello, world!
+        Send the message "Hello, world!" to user "k6av".
+
+    sendmail laws\ of\ physics Hello, world!
+        Send the message "Hello, world!" to user "laws of physics".
+
+SECURITY
+    Messages are sent based on user name, which is trivial to spoof. An attacker
+    logging in with another user's name can read their mail or send messages to other
+    users using their name.
+    Messages are stored unencrypted and can be accessed by the system operator.
+
+SEE ALSO
+    mail(1)
+
+AUTHOR
+    Script and this page written by K6aV.
+
+    Copyright (c) 2025 K6aV // https://github.com/k6av/aos-man
+    License AGPLv3+: GNU AGPL version 3 or later <https://gnu.org/licenses/agpl.html>.
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.
+
+0.1.0                                 2025-06-14                              SENDMAIL(1)
