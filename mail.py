@@ -13,7 +13,7 @@ from piqueserver.config import config
 
 import os
 from os.path import realpath, join, commonprefix, isfile
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 
 spool_dir = join(config.config_dir, 'mail')
 
@@ -33,7 +33,7 @@ def sendmail(self, recipient=None, *args):
         self.send_chat("Please specify a message.")
         return
 
-    date_text = datetime.now(UTC).strftime(r'%Y-%m-%d %H:%M:%S')
+    date_text = datetime.now(timezone.utc).strftime(r'%Y-%m-%d %H:%M:%S')
     message = f"{self.name} on {date_text} UTC: {message_text}"
 
     try:
