@@ -76,7 +76,7 @@ def cmd_sendmail(self, recipient=None, *args):
                  player.send_chat(f"{self.name}: {message_text} (mail)")
                  return "Message sent to %s." % recipient
 
-        self.sendmail(recipient, message)
+        sendmail(recipient, message)
     except:
         return "Message cannot be sent."
 
@@ -101,8 +101,8 @@ def apply_script(protocol, connection, config):
     class MailConnection(connection):
 
         def on_login(self, name):
-            if self.hasmail(self.name):
-                self.send_chat("You have new mail.")
+            if hasmail(self.name):
+                self.send_chat("\5You have new mail.\6")
             else:
                 self.send_chat("You have no mail.")
             return connection.on_login(self, name)
