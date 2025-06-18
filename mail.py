@@ -17,8 +17,42 @@ from datetime import datetime, timezone
 
 spool_dir = join(config.config_dir, 'mail')
 
+def sendmail(spool_name, message):
+    """
+    Append `message` to spool `spool_name`.
+    """
+    spool_path = realpath(join(spool_dir, spool_name))
+    if commonprefix((spool_path, spool_dir)) != spool_dir:
+        raise Exception
+
+    with open(spool_path, 'a') as spool:
+        spool.write(message + "\n")
+
+def getmail(spool_name):
+    """
+    Get all messages from spool `spool_name` and clear it.
+    """
+    spool_path = realpath(join(spool_dir, spool_name))
+    if commonprefix((spool_path, spool_dir)) != spool_dir:
+        raise Exception
+
+    with open(spool_path, 'r') as spool:
+        messages = spool.read()
+    os.remove(spool_path)
+    return messages
+
+def hasmail(spool_name):
+    """
+    Checks whether spool `spool_name` has messages.
+    """
+    spool_path = realpath(join(spool_dir, spool_name))
+    if commonprefix((spool_path, spool_dir)) != spool_dir:
+        raise Exception
+
+    return isfile(spool_path)
+
 @command('sm', 'sendmail')
-def sendmail(self, recipient=None, *args):
+def cmd_sendmail(self, recipient=None, *args):
     """
     Send a message to another user.
     /sendmail <recipient> <message>
@@ -44,7 +78,7 @@ def sendmail(self, recipient=None, *args):
     return "Message sent to %s." % recipient
 
 @command('mm', 'mail')
-def getmail(self):
+def cmd_getmail(self):
     """
     Read your mail and clear all messages.
     /mail
@@ -67,39 +101,5 @@ def apply_script(protocol, connection, config):
             else
                 self.send_chat("You have no mail.")
             return connection.on_login(self, name)
-
-        def sendmail(self, spool_name, message):
-            """
-            Append `message` to spool `spool_name`.
-            """
-            spool_path = realpath(join(spool_dir, spool_name))
-            if commonprefix((spool_path, spool_dir)) != spool_dir:
-                raise Exception
-
-            with open(spool_path, 'a') as spool:
-                spool.write(message + "\n")
-
-        def getmail(self, spool_name):
-            """
-            Get all messages from spool `spool_name` and clear it.
-            """
-            spool_path = realpath(join(spool_dir, spool_name))
-            if commonprefix((spool_path, spool_dir)) != spool_dir:
-                raise Exception
-
-            with open(spool_path, 'r') as spool:
-                messages = spool.read()
-            os.remove(spool_path)
-            return messages
-
-        def hasmail(self, spool_name):
-            """
-            Checks whether spool `spool_name` has messages.
-            """
-            spool_path = realpath(join(spool_dir, spool_name))
-            if commonprefix((spool_path, spool_dir)) != spool_dir:
-                raise Exception
-
-            return isfile(spool_path)
 
     return protocol, MailConnection
