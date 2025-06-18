@@ -71,6 +71,11 @@ def cmd_sendmail(self, recipient=None, *args):
     message = f"{self.name} on {date_text} UTC: {message_text}"
 
     try:
+        for player in self.protocol.players.values():
+            if player.name == recipient:
+                 player.send_chat(f"{self.name}: {message_text} (mail)")
+                 return "Message sent to %s." % recipient
+
         self.sendmail(recipient, message)
     except:
         return "Message cannot be sent."
