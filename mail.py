@@ -103,7 +103,7 @@ def apply_script(protocol, connection, config):
         def on_login(self, name):
             if self.hasmail(self.name):
                 self.send_chat("You have new mail.")
-            else
+            else:
                 self.send_chat("You have no mail.")
             return connection.on_login(self, name)
 
