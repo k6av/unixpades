@@ -90,7 +90,7 @@ def cmd_getmail(self):
     """
 
     try:
-        messages = self.getmail(self.name)
+        messages = getmail(self.name)
     except:
         return "You have no mail."
 
@@ -102,7 +102,7 @@ def apply_script(protocol, connection, config):
 
         def on_login(self, name):
             if hasmail(self.name):
-                self.send_chat("\5You have new mail.\6")
+                self.send_chat("\5\u200bYou have mail.\6")
             else:
                 self.send_chat("You have no mail.")
             return connection.on_login(self, name)
